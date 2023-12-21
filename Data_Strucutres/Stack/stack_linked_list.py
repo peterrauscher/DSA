@@ -39,22 +39,21 @@ class Stack:
         return self.head.value
 
     def empty(self):
-        return self.head is None
+        return not self.__bool__()
 
-    def size(self):
+    def __bool__(self) -> bool:
+        return self.head is not None
+
+    def __len__(self) -> int:
         return self.len
 
-
-if __name__ == "__main__":
-    s = Stack()
-    s.push(1)
-    s.push(2)
-    s.push(3)
-    print(s.size())
-    print(s.peek())
-    print(s.pop())
-    print(s.pop())
-    print(s.size())
-    print(s.pop())
-    print(s.size())
-    print(s.empty())
+    def __str__(self) -> str:
+        if not self.head:
+            return "[]"
+        reversed = []
+        curr = self.head
+        while curr:
+            reversed.append(str(curr.value))
+            curr = curr.next
+        reversed.reverse()
+        return "[" + ", ".join(reversed) + "]"

@@ -6,11 +6,13 @@ class Queue[T]:
             self.prev = prev
 
     def __init__(self):
+        self.length = 0
         self.head = None
         self.tail = None
 
     def enqueue(self, val: T):
         new_node = self.Node(val)
+        self.length += 1
         if self.empty():
             self.head = new_node
             self.tail = new_node
@@ -22,6 +24,7 @@ class Queue[T]:
     def dequeue(self) -> T:
         if self.empty():
             raise IndexError("Cannot deque from an empty queue")
+        self.length -= 1
         val = self.tail.val
         self.tail = self.tail.prev
         self.tail.next = None
@@ -33,17 +36,17 @@ class Queue[T]:
         return self.tail.val
     
     def empty(self) -> bool:
-        return not self.head
+        return self.length == 0
     
     def __bool__(self) -> bool:
-        return self.empty()
+        return not self.empty()
     
     def __str__(self) -> str:
-        s = "["
+        if not bool(self):
+            return "[]"
+        s = ""
         curr = self.head
-        while curr:
-            s += str(curr.val)
-            if curr.next:
-                s += ", "
+        while curr.next:
+            s += str(curr.val) + " -> "
             curr = curr.next
-        return s + "]"
+        return "[" + s + str(curr.val) + "]"

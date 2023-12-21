@@ -1,16 +1,15 @@
-class Node[T]:
-    def __init__(self, val: T, next=None):
-        self.val: T = val
-        self.next = next
-
-
 class LinkedList[T]:
+    class Node:
+        def __init__(self, val: T, next=None):
+            self.val: T = val
+            self.next = next
+
     def __init__(self):
         self.length = 0
         self.head = None
 
     def append(self, val: T) -> None:
-        new_node = Node[T](val)
+        new_node = self.Node(val)
         if not self.head:
             self.head = new_node
             self.length += 1
@@ -22,7 +21,7 @@ class LinkedList[T]:
         self.length += 1
 
     def prepend(self, val: T) -> None:
-        self.head = Node[T](val, self.head)
+        self.head = self.Node(val, self.head)
         self.length += 1
 
     def insertAt(self, val: T, index: int) -> None:
@@ -36,7 +35,7 @@ class LinkedList[T]:
         while curr and curr.next and index > 1:
             curr = curr.next
             index -= 1
-        newNode = Node[T](val, curr.next)
+        newNode = self.Node(val, curr.next)
         curr.next = newNode
         self.length += 1
 
@@ -87,11 +86,3 @@ class LinkedList[T]:
 
     def __len__(self) -> int:
         return self.length
-
-
-l = LinkedList[int]()
-l.insertAt(10, 0)
-l.insertAt(5, 0)
-l.insertAt(15, 2)
-l.insertAt(9, 1)
-print(l)

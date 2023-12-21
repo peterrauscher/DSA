@@ -24,20 +24,3 @@ class Stack:
 
     def push(self, x):
         self.data.append(x)
-
-
-if __name__ == "__main__":
-    s = Stack()
-    print(s.empty())
-    print(s.size())
-    s.push(2)
-    s.push(14)
-    print(s.peek())
-    print(s.size())
-    print(s.pop())
-    print(s.size())
-    s.push(23)
-    print(s.pop())
-    print(s.pop())
-    print(s.size())
-    print(s.empty())
